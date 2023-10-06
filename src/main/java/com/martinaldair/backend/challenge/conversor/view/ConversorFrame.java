@@ -1,5 +1,6 @@
 package com.martinaldair.backend.challenge.conversor.view;
 
+import com.martinaldair.backend.challenge.conversor.util.ConversorUtil;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 import java.util.regex.*;
@@ -74,6 +75,7 @@ public class ConversorFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     Double number = 0.0;
+    static Double nuevaDivisaConvertida;
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -83,7 +85,7 @@ public class ConversorFrame extends javax.swing.JFrame {
         switch (indexConvertidorElegido){
             case 0:
             String moneda = JOptionPane.showInputDialog(this, "Ingrese la cantidad de dinero que deseas convertir:");
-            Boolean isValidoInput = validarInput(moneda);
+            Boolean isValidoInput = ConversorUtil.validarInput(moneda);
             // Valida el tipo de dato numerico de entrada
             if(!isValidoInput){
                   JOptionPane.showMessageDialog(this, "Valor de entrada no valido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -97,7 +99,8 @@ public class ConversorFrame extends javax.swing.JFrame {
              JOptionPane.INFORMATION_MESSAGE, null,
              inputValoresMenu, null);
             }
-            // number = Double.parseDouble(moneda); 
+            number = Double.parseDouble(moneda);
+            nuevaDivisaConvertida = ConversorUtil.conversorDivisas("mx", "usa", number);
             break;
             case 1:
             break;
@@ -143,13 +146,7 @@ public class ConversorFrame extends javax.swing.JFrame {
         });
     }
 
-    /*
-     *Metodo de validadacion de tipo numerico
-     **/
-    Boolean validarInput(String inputMoneda){
-        Boolean isValido = Pattern.compile("[0-9.]+").matcher(inputMoneda).matches();
-        return isValido;
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;

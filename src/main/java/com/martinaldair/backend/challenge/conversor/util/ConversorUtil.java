@@ -1,21 +1,22 @@
 package com.martinaldair.backend.challenge.conversor.util;
 
 import java.text.DecimalFormat;
+import java.util.regex.Pattern;
 
 /**
 * @author Martin_Aldair
 */
 public class ConversorUtil {
 	 
-	/**
+    /**
      * Declaracion de variables de los tipos de monedas con su cantidad 
      * respectiva
      */
-    Double dolarUS_MX = 17.41;
-    Double eur_MX = 18.67;
-    Double libraEsterlina_MX = 21.93;
-    Double yen_MX = 8.00;
-    Double won_MX = 74.00;
+    static Double dolarUS_MX = 17.41;
+    static Double eur_MX = 18.67;
+    static Double libraEsterlina_MX = 21.93;
+    static Double yen_MX = 8.00;
+    static Double won_MX = 74.00;
     
     /**
      * Metodo de conversion de divisas
@@ -24,7 +25,7 @@ public class ConversorUtil {
      * @param cantidad
      * @return double
      */
-    public Double conversorDivisas (String tipoMoneda, String tipoConversion, 
+    public static Double conversorDivisas (String tipoMoneda, String tipoConversion, 
             Double cantidad) {
         // Tipo de formato del tipo de dato double
         DecimalFormat dFormat = new DecimalFormat("#.##");
@@ -105,6 +106,14 @@ public class ConversorUtil {
         }
         // Conversion del formato del tipo de dato double
         return Double.valueOf(dFormat.format(moneda));
+    }
+    
+    /*
+     * Metodo de validadacion de tipo numerico
+     **/
+    public static Boolean validarInput(String inputMoneda){
+        Boolean isValido = Pattern.compile("[0-9.]+").matcher(inputMoneda).matches();
+        return isValido;
     }
     
 }
