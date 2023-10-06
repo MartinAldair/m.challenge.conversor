@@ -25,12 +25,13 @@ public class ConversorUtil {
      * @param cantidad
      * @return double
      */
-    public static Double conversorDivisas (String tipoMoneda, String tipoConversion, 
+    public static String conversorDivisas (String tipoMoneda, String tipoConversion, 
             Double cantidad) {
         // Tipo de formato del tipo de dato double
         DecimalFormat dFormat = new DecimalFormat("#.##");
         // Declaracion de variable
         Double moneda = null;
+        String tipoDivisa = null;
         // Eleccion de moneda
         switch(tipoMoneda){
             // Moneda Peso mx
@@ -39,22 +40,27 @@ public class ConversorUtil {
                     // Conversion peso a dolar
                     case "usa":
                         moneda = cantidad * dolarUS_MX;
+                        tipoDivisa = "Dolares";
                         break;
                     // Conversion peso a euro
                     case "eur":
                         moneda = cantidad * eur_MX;
+                        tipoDivisa = "Pesos";
                         break;
                     // Conversion peso a euro
                     case "gbp":
                         moneda = cantidad * libraEsterlina_MX;
+                        tipoDivisa = "Libras Esterlinas";
                         break;
                      // Conversion peso a yen
                     case "yen":
                         moneda = cantidad * yen_MX;
+                        tipoDivisa = "Yens Japones";
                         break;
                     // Conversion peso a won
                     case "won":
                        moneda = cantidad * won_MX;
+                       tipoDivisa = "Won Coreano";
                        break;
                 }
                 break;
@@ -64,6 +70,7 @@ public class ConversorUtil {
                     // Conversion dolar us a peso mx
                     case "mx":
                         moneda = cantidad / dolarUS_MX;
+                        tipoDivisa ="Peso MX";
                         break;
                 }
                 break;
@@ -73,6 +80,7 @@ public class ConversorUtil {
                     // Conversion euro a peso mx
                     case "mx":
                         moneda = cantidad / eur_MX;
+                        tipoDivisa ="Peso MX";
                         break;
                 }
                 break;
@@ -82,6 +90,7 @@ public class ConversorUtil {
                     // Conversion libra esterlina a peso mx
                     case "mx":
                         moneda = cantidad / libraEsterlina_MX;
+                        tipoDivisa ="Peso MX";
                         break;
                 }
                 break;
@@ -91,6 +100,7 @@ public class ConversorUtil {
                     // Conversion yen japones a peso mx
                     case "mx":
                         moneda = cantidad / yen_MX;
+                        tipoDivisa ="Peso MX";
                         break;
                 }
                 break;
@@ -100,12 +110,13 @@ public class ConversorUtil {
                     // Conversion won coreano a peso mx
                     case "mx":
                         moneda = cantidad / won_MX;
+                        tipoDivisa ="Peso MX";
                         break;
                 }
                 break;
         }
         // Conversion del formato del tipo de dato double
-        return Double.valueOf(dFormat.format(moneda));
+        return String.valueOf(Double.valueOf(dFormat.format(moneda)) + " " + tipoDivisa);
     }
     
     /*

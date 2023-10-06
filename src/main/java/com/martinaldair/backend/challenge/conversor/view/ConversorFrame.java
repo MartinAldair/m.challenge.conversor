@@ -3,7 +3,6 @@ package com.martinaldair.backend.challenge.conversor.view;
 import com.martinaldair.backend.challenge.conversor.util.ConversorUtil;
 import javax.swing.*;
 import javax.swing.JOptionPane;
-import java.util.regex.*;
 
 /**
  *
@@ -75,7 +74,7 @@ public class ConversorFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     Double number = 0.0;
-    static Double nuevaDivisaConvertida;
+    static String nuevaDivisaConvertida;
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -89,18 +88,68 @@ public class ConversorFrame extends javax.swing.JFrame {
             // Valida el tipo de dato numerico de entrada
             if(!isValidoInput){
                   JOptionPane.showMessageDialog(this, "Valor de entrada no valido", "Error", JOptionPane.ERROR_MESSAGE);
-            }else{
-            Object[] inputValoresMenu = { "De pesos MX a Dolar", "De pesos MX a Euros", "De pesos MX a Libras Esterlinas", 
+            }else {
+            String [] inputValoresMenu = { "De pesos MX a Dolar", "De pesos MX a Euros", "De pesos MX a Libras Esterlinas", 
                 "De pesos MX a Yen Japonés", "De pesos MX a Won sul-coreano", "De Dolar a pesos MX", "De Euros a pesos MX", 
                 "De Libras Esterlinas a pesos MX", "De Yen Japonés a pesos MX", "De Won sul-coreano a pesos MX" };
 
-            Object monedaSeleccionada = JOptionPane.showInputDialog(null,
+            String  monedaSeleccionada = (String) JOptionPane.showInputDialog(null,
              "Elige la moneda a la que deseas convertir tu dinero", "Monedas",
              JOptionPane.INFORMATION_MESSAGE, null,
              inputValoresMenu, null);
-            }
+            
             number = Double.parseDouble(moneda);
-            nuevaDivisaConvertida = ConversorUtil.conversorDivisas("mx", "usa", number);
+            
+            switch (monedaSeleccionada) {
+                case "De pesos MX a Dolar":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("mx", "usa", number);
+                    break;
+                case "De pesos MX a Euros":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("mx", "eur", number);
+                    break;
+                case "De pesos MX a Libras Esterlinas":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("mx", "gbp", number);
+                    break;
+                case "De pesos MX a Yen Japonés":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("mx", "yen", number);
+                    break;
+                case "De pesos MX a Won sul-coreano":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("mx", "won", number);
+                    break;
+                case "De Dolar a pesos MX":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("usa", "mx", number);
+                    break;
+                case "De Euros a pesos MX":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("eur", "mx", number);
+                    break;
+                case "De Libras Esterlinas a pesos MX":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("gbp", "mx", number);
+                    break;
+                case "De Yen Japonés a pesos MX":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("yen", "mx", number);
+                    break;
+                case "De Won sul-coreano a pesos MX":
+                    nuevaDivisaConvertida = ConversorUtil.conversorDivisas("won", "usa", number);
+                    break;
+                }
+            }
+            Object[] optionsMsgValorConversion = { "Aceptar" };
+            Object[] optionsMsgContinuarPrograma = { "Si", "No", "Cancelar" };
+            int respValorConversion = JOptionPane.showOptionDialog(null, "Tienes "+ nuevaDivisaConvertida, "Mensaje",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    null, optionsMsgValorConversion, optionsMsgValorConversion[0]);
+            if(respValorConversion ==0) {
+            	int respContinuarPrograma = JOptionPane.showOptionDialog(null, "Deseas continuar", "Selecciona una opcion",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                        null, optionsMsgContinuarPrograma, optionsMsgContinuarPrograma[0]);
+            	if(respContinuarPrograma!= 0) {
+            		JOptionPane.showMessageDialog(this, "Programa Finalizado", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+            		System.exit(0);
+            	}else {
+            		number = 0.0;
+            		nuevaDivisaConvertida = "";
+            	}
+            }
             break;
             case 1:
             break;
@@ -110,42 +159,6 @@ public class ConversorFrame extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConversorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConversorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConversorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConversorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConversorFrame().setVisible(true);
-            }
-        });
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
